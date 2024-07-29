@@ -3,29 +3,29 @@ import { Link } from "react-router-dom";
 
 
 export default function Account ({ SingleBook, Books, }) {
-  const addToCart = (item) => {
+  const addToCheckout = (item) => {
     let resultIndex = 0;
     let productQty = 0;
     // check if item is in cart...
-    const result = cart.find((product, index)=>{
+    const result = checkout.find((product, index)=>{
       resultIndex = index;
       return product.id === item.id;
     });
     if (result) {
       // ...if Yes, then update quantity by 1
-      cart[resultIndex].quantity += 1;
-      productQty = cart[resultIndex].quantity;
-      localStorage.setItem("cart", JSON.stringify(cart));
-      setCart(cart)
+      checkout[resultIndex].quantity += 1;
+      productQty = checkout[resultIndex].quantity;
+      localStorage.setSingleBook("cart", JSON.stringify(checkout));
+      setCheckout(checkout)
     }else{
       // if NO, add the item to the cart and set quantity to 1
 
         item.quantity = 1;
         productQty = 1;
         const updatedCart =[...cart, item];
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        localStorage.setItem("cart", JSON.stringify(updatedCheckout));
 
-        setCart(updatedCart);
+        setCart(updatedCheckout);
     }
 
     alert[
@@ -49,7 +49,7 @@ export default function Account ({ SingleBook, Books, }) {
         )}
       {parent === "details" && !token && (
         <></>
-        // <Link to="/login">Login to Add to Cart</Link>
+        // <Link to="/login">Login or create an account</Link>
       )}
    </Link>
    </>
