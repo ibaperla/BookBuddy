@@ -20,16 +20,16 @@ export default function Account ({ SingleBook, Books, }) {
     }else{
       // if NO, add the item to the cart and set quantity to 1
 
-        item.quantity = 1;
-        productQty = 1;
-        const updatedCart =[...cart, item];
-        localStorage.setItem("cart", JSON.stringify(updatedCheckout));
+        Book.quantity = 1;
+        BooksQty = 1;
+        const updatedCheckout =[Checkout, Book];
+        localStorage.setItem("checkout", JSON.stringify(updatedCheckout));
 
-        setCart(updatedCheckout);
+        setCheckout(updatedCheckout);
     }
 
     alert[
-      "Added item! You have " + productQty + " " + item.title + " in your cart!"
+      "Added book! You have " + booksQty + " " + book.title + " books checkedout!"
     ];
   };
 
