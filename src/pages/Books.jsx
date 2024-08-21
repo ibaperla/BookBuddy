@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Details from "./Details";
-import ProductList from "../components/ProductList/ProductList";
+import Details from "../pages/Details";
+import BookList from "../components/BookList/BookList";
 import axios from "axios";
-import "./Home.css";
+import "./Books.css";
 
-export default function Home({ 
+export default function Books({ 
   products, 
   setProducts, 
   productsToDisplay, 
@@ -12,8 +12,9 @@ export default function Home({
 }) {
   useEffect(() => {
     // call api here 
-    axios("https://fakestoreapi.com/products")
+    axios("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books") 
       .then((res) => {
+        console.log("----------", res.data)
         setProducts(res.data);
         setProductsToDisplay(res.data);
       })
@@ -74,7 +75,7 @@ export default function Home({
           </p>
         </div>
       </div>
-      <ProductList products={productsToDisplay} />
+      <BookList products={productsToDisplay} />
     </div> 
   );
 }

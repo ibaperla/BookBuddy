@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Home from "./pages/Home";
+import Navigations from "./components/Navigations/Navigations";
+import Books from "./pages/Books"
 import Details from "./pages/Details";
 import Cart from "./pages/Cart";
 import Login from "./components/Login/Login";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import {Routes, Route} from "react-router-dom";
-
+import Register from "/components/Register/Register";
 import "./App.css";
+import Account from "./components/Account/Account";
 
 function App() {
-  const [products, setProducts] = useState([]);
-  const [productsToDisplay, setProductsToDisplay] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [booksToDisplay, setBooksToDisplay] = useState([]);
   const [token, setToken] = useState(null);
   const [cart, setCart] = useState([]);
 
@@ -30,48 +30,52 @@ function App() {
   }, []);
   return (
     <>
-      <Header
-        products={products} 
-        setProducts={setProducts}
-        setProductsToDisplay={setProductsToDisplay}
+      <Navigations
+        books={books} 
+        setBooks={setBooks}
+        setBooksToDisplay={setBooksToDisplay}
         token={token}
         setToken={setToken}
       />
       <Routes>
-        <Route 
+         <Route 
           path="/"
           element={
-            <Home 
-              setProducts={setProducts} 
-              products={products} 
-              productsToDisplay={productsToDisplay}
-              setProductsToDisplay={setProductsToDisplay}
+            <Books
+              setBooks={setBooks} 
+              books={books} 
+              booksToDisplay={booksToDisplay}
+              setBooksToDisplay={setBooksToDisplay}
             />
           }
         />
         <Route 
-         path="/product/details/:id"
+         path="/book/details/:id"
          element={<Details token={token} cart={cart} setCart={setCart} />}
         />
         <Route 
           path="/login" 
           element={<Login setToken={setToken} token={token} />} 
         />
-        <Route element={<ProtectedRoute />}>
-        <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
-        </Route>
-
+        <Route 
+        path="/account"
+        element={<Account/>}
+        />
+        <Route
+        path="/register"
+        element={<Register/>}
+        />
         <Route 
           path="*" 
           element={
-            <Home 
-              setProducts={setProducts} 
-              products={products} 
-              productsToDisplay={productsToDisplay}
-              setProductsToDisplay={setProductsToDisplay}
+            <Books 
+              setBooks={setBooks} 
+              books={books} 
+              booksToDisplay={booksToDisplay}
+              setBooksToDisplay={setBooksToDisplay}
             />
           }
-        />
+        /> 
       </Routes>
     </>
   );
