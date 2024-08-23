@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import Navigations from "./components/Navigations/Navigations";
-import Books from "./pages/Books"
+import Books from "./pages/Books";
 import Details from "./pages/Details";
-import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Login from "./components/Login/Login";
 import {Routes, Route} from "react-router-dom";
-import Register from "/components/Register/Register";
+import Register from "./components/Register/Register";
 import "./App.css";
 import Account from "./components/Account/Account";
-
+// import Authenticate from "./components/Authenticate/Authenticate";
 function App() {
   const [books, setBooks] = useState([]);
   const [booksToDisplay, setBooksToDisplay] = useState([]);
   const [token, setToken] = useState(null);
-  const [cart, setCart] = useState([]);
+  const [checkout, setCheckout] = useState([]);
 
   useEffect(() => {
-    const localCart = localStorage.getItem("cart");
-    if (localCart) {
-      setCart(JSON.parse(localCart));
+    const localCheckout = localStorage.getItem("checkout");
+    if (localCheckout) {
+      setCheckout(JSON.parse(localCheckout));
     }
   }, []); 
 
@@ -31,11 +31,11 @@ function App() {
   return (
     <>
       <Navigations
-        books={books} 
-        setBooks={setBooks}
-        setBooksToDisplay={setBooksToDisplay}
-        token={token}
-        setToken={setToken}
+       books={books}
+       setBooks={setBooks}
+       setBooksToDisplay={setBooksToDisplay}
+       token={token}
+       setToken={setToken}
       />
       <Routes>
          <Route 
@@ -51,7 +51,7 @@ function App() {
         />
         <Route 
          path="/book/details/:id"
-         element={<Details token={token} cart={cart} setCart={setCart} />}
+         element={<Details token={token} checkout={checkout} setCheckout={setCheckout} />}
         />
         <Route 
           path="/login" 
@@ -61,8 +61,14 @@ function App() {
         path="/account"
         element={<Account/>}
         />
+
+        {/* <Authenticate/> */}
+
+        <Route path="/checkout" element={<Checkout checkout={checkout}
+        setCheckout={setCheckout}/>}
+        />
         <Route
-        path="/register"
+        path="users/register"
         element={<Register/>}
         />
         <Route 

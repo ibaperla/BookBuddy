@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Account({ apiUrl, isLoggedIn }) {
+  const navigate = useNavigate();
   const [accountData, setAccoutData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-     const localToken=localStorage.getItem("token");
+     const localToken=localStorage.getitem("token");
      if (isLoggedIn && localToken) {
 
       fetch("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me",{headers:{
         "Content-Type": "string",
-        "Authorization": `Bearer ${localToken}`
+        "Authorization": `Bearer ${localToken}`,
 
       }})
         .then((res) => res.json())
@@ -23,7 +25,17 @@ export default function Account({ apiUrl, isLoggedIn }) {
           setError(err);
           setLoading(false);
         });
-  
+     if (isLoggedIn) {
+      navigate("/");
+     }
+
+     return (
+      <div className="account-container">
+        <p style={{ color: "red", marginBottom: "10px" }}>
+          Please log in or create an account.
+        </p>
+      </div>
+     ) 
   }})
 }
 

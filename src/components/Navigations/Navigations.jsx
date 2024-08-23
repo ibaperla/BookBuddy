@@ -4,25 +4,25 @@ import { useLocation, Link } from "react-router-dom";
 import "./Navigations.css";
 
 export default function Navigations({
-products,
-setProducts,
-setProductsToDisplay,
+books,
+setbooks,
+setbooksToDisplay,
 token,
 setToken
 }) {
   const location = useLocation();
 
   const handleSearch = (e) => {
-    const filtered = products.filter((item) => 
+    const filtered = books.filter((item) => 
       item.title.toLowerCase().includes(e.target.value.toLowerCase())
      );
-     setProductsToDisplay(filtered);
+     setbooksToDisplay(filtered);
   }
 
   const logout = () => {
     // clear the token from localStorage
     console.log("logging out");
-    localStorage.removeItem("token");
+    localStorage.removeitem("token");
     setToken(null);
   };
 
@@ -53,8 +53,8 @@ setToken
         )}
       {token && <button onClick={logout}>Logout</button>}
       {token && (
-        <Link to ="/cart" className="login">
-          Cart
+        <Link to ="/checkout" className="login">
+          checkout
         </Link>
       )}
       </div>

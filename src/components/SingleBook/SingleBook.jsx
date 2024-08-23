@@ -1,53 +1,55 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
+import "./SingleBook.css";
 
-export default function SingleBook({item, parent, token, cart, setCart}) {
-  const addToCart = (item) => {
+export default function SingleBook({item, parent, token, checkout, setCheckout}) {
+  const addToCheckout = (item) => {
     let resultIndex =0;
     let productQty = 0;
-    // check if item is in cart...
-    const result = cart.find((product, index)=>{
+    // check if item is in checkout...
+    const result = checkout.find((product, index)=>{
       resultIndex = index;
-      return product.id === item.id
+      return product.id === item.id;
     });
     if (result) {
       // ...if Yes, then update quantity by 1
-      cart[resultIndex].quantity += 1;
-      productQty = cart[resultIndex].quantity;
-      localStorage.setItem("cart", JSON.stringify(cart));
-      setCart(cart)
+      checkout[resultIndex].quantity += 1;
+      productQty = checkout[resultIndex].quantity;
+      localStorage.setItem("checkout", JSON.stringify(checkout));
+      setCheckout(checkout)
     }else{
-      // if NO, add item to the cart and set quantity to 1
+      // if NO, add item to the checkout and set quantity to 1
 
       item.quantity = 1;
       productQty = 1;
-      const updatedCart =[...cart, item];
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      const updatedCheckout =[...checkout, item];
+      localStorage.setitem("checkout", JSON.stringify(updatedCheckout));
 
-      setCart(updatedCart);
+      setCheckout(updatedCheckout);
     }
 
     alert[
-      "Added item! You have" + productQty + " " + item.title + "in your cart!"
+      "Added item! You have" + productQty + " " + item.title + "in your checkout!"
     ];
   };
   
   return (
     <>
-    <Link to={`/product/details/${item?.id}`} className="single-book">
-    <h2>{item?.title}</h2>
+    <Link to={`api/books/${book?.id}`} 
+className="single-book">
+    <h2>{book?.title}</h2>
     {parent === "details" ? (
-      <img src={item?.image} alt={item?.title} height={"500px"} />
+      <img src={book?.image} alt={book?.title} height={"500px"} />
     ) : (
-      <img src={item?.image} alt={item?.title} />
+      <img src={book?.image} alt={book?.title} />
     )}
-    <p>{item?.price?.toFixed(2)}</p>
-    {parent === "details" && <p>{item?.description}</p>}
+    <p>{book?.price?.toFixed(2)}</p>
+    {parent === "details" && <p>{book?.description}</p>}
     {parent === "details" && token && (
-      <button onClick={()=>addToCart(item)}>Add to Cart</button>
+      <button onClick={()=>addToCheckout(item)}>Add to checkout</button>
       )}
     {parent === "details" && !token && (
-      <></>
-      // <Link to="/login">Login to Add to Cart</Link>
+      <Link to="/login">Login to Add to checkout</Link>
       )}
    </Link>
    </>
