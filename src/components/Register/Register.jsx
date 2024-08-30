@@ -12,8 +12,9 @@ const handleRegister = async (e) => {
   e.preventDefault();
 
   try {
-    const response = await axios.post("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/users/register")
+    const response = await axios.post("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations")
     const result = response.data;
+    console.log(result);
     localStorage.setItem("token", result.token);
     onRegister(result.user);
   } catch (error) {

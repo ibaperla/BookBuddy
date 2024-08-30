@@ -3,7 +3,7 @@ import SingleBook from "../components/SingleBook/SingleBook";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function Details({book, token, checkout, setCheckout}) {
+export default function Details({item, token, checkout, setCheckout}) {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     console.log(product)
@@ -17,7 +17,7 @@ export default function Details({book, token, checkout, setCheckout}) {
   return (
     <div>
         <SingleBook
-        book={product}
+        item={product}
         parent={"details"}
         token={token}
         checkout={checkout}

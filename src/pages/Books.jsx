@@ -14,7 +14,7 @@ export default function Books({
     // call api here 
     axios("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books") 
       .then((res) => {
-        // console.log("----------", res.data)
+        console.log("----------", res.data)
         setProducts(res.data);
         setProductsToDisplay(res.data);
       })

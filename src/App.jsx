@@ -8,7 +8,7 @@ import {Routes, Route} from "react-router-dom";
 import Register from "./components/Register/Register";
 import "./App.css";
 import Account from "./components/Account/Account";
-// import Authenticate from "./components/Authenticate/Authenticate";
+import Authenticate from "./components/Authenticate/Authenticate";
 function App() {
   const [books, setBooks] = useState([]);
   const [booksToDisplay, setBooksToDisplay] = useState([]);
@@ -61,14 +61,15 @@ function App() {
         path="/account"
         element={<Account/>}
         />
-
-        {/* <Authenticate/> */}
+        
+        <Register token={token} setToken={setToken} />
+        <Authenticate token={token} setToken={setToken} />
 
         <Route path="/checkout" element={<Checkout checkout={checkout}
         setCheckout={setCheckout}/>}
         />
         <Route
-        path="users/register"
+        path="/register"
         element={<Register/>}
         />
         <Route 
