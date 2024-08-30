@@ -1,60 +1,62 @@
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Login.css"
+import useState from 'react';
+import axios from 'axios';
 
-export default function Login({token, setToken}) {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState(false);
+export default function Register( onRegister ) {
+const [firstname, setFirstname] = useState("");
+const [lastname, setLastname] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [registerError, setRegisterError] = useState(false);
 
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    axios
-      .post("https://fakestoreapi.com/auth/login", { username, password })
-      .then((res) => {
-        console.log(res);
-        if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
-          setToken(res.data.token);
-          navigate("/");
-        }
-    })
-    .catch((err) => {
-      setLoginError(true);
-    }); 
- };
- if (token) {
-   navigate("/");
+const handleRegister = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await axios.post("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations")
+    const result = response.data;
+    console.log(result);
+    localStorage.setItem("token", result.token);
+    onRegister(result.user);
+  } catch (error) {
+    console.log("Registration failed:", error.response.data.message)
   }
+}
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        {loginError && (
-            <p style={{ color: "red", marginBottom: "10px" }}>
-                Wrong credentials. Please try again.
-            </p>
+  <div className="register-form">
+      <form onSubmit={handleRegister} className="register-form">
+        {registerError && (
+          <p style={{ color: "red", marginBottom: "10px" }}>
+              Registration failed. Please try again.
+          </p>
         )}
-        <input 
-          type="text" 
-          placeholder="Username" 
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }} 
-        />
+         <input
+           type="text"
+           placeholder="First Name"
+           value={firstname}
+           onChange={(e) => setFirstname(e.target.value)}
+          />
+           <input
+           type="text"
+           placeholder="Last Name"
+           value={lastname}
+           onChange={(e) => setLastname(e.target.value)}
+          />
+           <input
+           type="text"
+           placeholder="Email"
+           value={email}
+           onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+           type="password"
+           value={password}
+           onChange={(e) => setPassword(e.target.value)}
+          />
         <button>Submit</button> 
       </form>
-    </div>
-  );
+  </div>  
+  ); 
 }
 
 

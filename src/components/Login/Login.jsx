@@ -12,11 +12,11 @@ export default function Login({token, setToken}) {
   const handleSubmit = (e)=>{
     e.preventDefault();
     axios
-      .post("https://fakestoreapi.com/auth/login", { username, password })
+      .post("https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/login", { username, password })
       .then((res) => {
         console.log(res);
         if (res.data.token) {
-          localStorage.setItem("token", res.data.token);
+          localStorage.setitem("token", res.data.token);
           setToken(res.data.token);
           navigate("/");
         }
